@@ -8,13 +8,27 @@ const MockTodoFooter = ({ numberOfIncompleteTasks }) => (
   </BrowserRouter>
 );
 
-test("should render the correct ammount of incomplete tasks", () => {
-  render(<MockTodoFooter numberOfIncompleteTasks={5} />);
-  const paragraphElement = screen.getByText(/5 tasks left/i);
-  // 以下為 assertions 
-  expect(paragraphElement).toBeInTheDocument();
-  expect(paragraphElement).toBeTruthy();
-  expect(paragraphElement).not.toBeFalsy();
-  expect(paragraphElement).toBeVisible(); // 用於判斷該 element 的 opcaity /visiblity / display 值
-  expect(paragraphElement.value).toBe(1);
+// describe block
+describe("TodoFooter", () => {
+  const regex = /5 tasks left/i;
+  const numberOfIncompleteTasks = 5
+
+  describe("document type", () => {
+    test("should render the correct ammount of incomplete tasks (document type)", () => {
+      render(<MockTodoFooter numberOfIncompleteTasks={numberOfIncompleteTasks} />);
+      const paragraphElement = screen.getByText(regex);
+      // 以下為 assertions
+      expect(paragraphElement).toBeInTheDocument();
+      expect(paragraphElement).toBeVisible(); // 用於判斷該 element 的 opcaity /visiblity / display 值
+    });
+  });
+
+  describe("true or false", () => {
+    test("should render the correct ammount of incomplete tasks (true or false)", () => {
+      render(<MockTodoFooter numberOfIncompleteTasks={numberOfIncompleteTasks} />);
+      const paragraphElement = screen.getByText(regex);
+      expect(paragraphElement).toBeTruthy();
+      expect(paragraphElement).not.toBeFalsy();
+    });
+  });
 });
